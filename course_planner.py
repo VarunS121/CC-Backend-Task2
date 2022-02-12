@@ -1,6 +1,3 @@
-from codecs import getreader
-import os
-
 class Course:
     def __init__(self, name, units):
         self.name = name
@@ -8,6 +5,7 @@ class Course:
         self.notes = []
         self.meet_link = ''
         self.grade = 0
+        self.notes =''
 
     def view_course(self):
         print(f"\nName: {self.name}    Units: {self.units}    Link: {self.meet_link}    Grade: {self.grade}")
@@ -15,42 +13,24 @@ class Course:
     def add_meet_link(self, link):
         self.meet_link = link
 
-    def edit_notes(self):
-        while True:
-            print ("\nCreate(c)      Read(r)     Delete(d)     Back(q)")
-            opt = input()
-            file_name = self.name + 'Notes.txt'
-            if opt == 'c':
-                if not file_exist(file_name):
-                    print("Write your notes...")
-                    notes = input()
-                    with open(file_name, 'w', encoding='utf-8') as fil:
-                        fil.writelines(notes)
-                else:
-                    print(file_name + ' already exists.')
-            elif opt == 'r':
-                if file_exist(file_name):
-                    with open(file_name, 'r', encoding='utf-8') as f:
-                        note = f.read()
-                        print(note)
-                else:
-                    print("Please create a notes first")
-            elif opt =='d':
-                if file_exist(file_name):
-                    os.remove(file_name)
-                else:
-                    print("The file does not exist")
-            elif opt == 'q':
-                break
-
     def add_grade(self, grade):
         self.grade = grade
 
-def file_exist(file):
-    if os.path.exists(file):
-        return True
-    else:
-        return False
+    def edit_notes(self):
+        while True:
+            print ("\nWrite(w)      Read(r)     Erase(e)     Back(q)")
+            opt = input()
+            if opt == 'w':
+                print("Write your notes...")
+                self.notes = input()
+            elif opt == 'r':
+                print(self.notes)
+            elif opt =='e':
+               yn = input("Are you sure you want to delete the notes(y/n): ")
+               if yn == 'y':
+                   self.notes = ''
+            elif opt == 'q':
+                break
 
 def edit(name):    
     while True:
